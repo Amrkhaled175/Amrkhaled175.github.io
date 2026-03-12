@@ -10,9 +10,12 @@
     content="Premium frontend developer portfolio with modern UI, projects, skills, and contact section."
   />
 
-  <!-- Modern fonts -->
+  <!-- Performance hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="My Photo.jpg" />
+
+  <!-- Modern fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700&family=Sora:wght@600;700;800&family=Space Grotesk:wght@500;700&display=swap"
     rel="stylesheet"
@@ -102,6 +105,8 @@
               src="My Photo.jpg"
               alt="Amr Khaled profile photo"
               class="hero-image"
+              fetchpriority="high"
+              decoding="async"
             />
           </div>
 
@@ -112,154 +117,155 @@
       </div>
     </section>
 
-<!-- About Section -->
-<section class="about section" id="about">
-  <div class="container">
-    <div class="section-heading reveal">
-      <span class="section-label">About Me</span>
-      <h2>More about my background, education, learning journey, and future goals.</h2>
-      <p class="about-intro">
-        I am Amr Khaled, a young frontend developer with a strong passion for web
-        development and a clear goal of becoming a full-stack developer in the future.
-      </p>
-    </div>
-
-    <div class="about-timeline reveal">
-      <div class="about-title-row">
-        <div class="about-title-icon">
-          <i class="fa-solid fa-user"></i>
+    <!-- About Section -->
+    <section class="about section" id="about">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="section-label">About Me</span>
+          <h2>More about my background, education, learning journey, and future goals.</h2>
+          <p class="about-intro">
+            I am Amr Khaled, a young frontend developer with a strong passion for web
+            development and a clear goal of becoming a full-stack developer in the future.
+          </p>
         </div>
-        <h3>My Journey</h3>
+
+        <div class="about-timeline reveal">
+          <div class="about-title-row">
+            <div class="about-title-icon">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <h3>My Journey</h3>
+          </div>
+
+          <div class="timeline-list">
+            <article class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-card-head">
+                  <div>
+                    <h4>Who I Am</h4>
+                    <span class="timeline-subtitle">Frontend Developer</span>
+                  </div>
+                  <span class="timeline-date">Present</span>
+                </div>
+                <p>
+                  My name is <strong>Amr Khaled</strong>. I am passionate about frontend
+                  development and enjoy building modern, clean, and responsive websites that
+                  combine good design with smooth user experience.
+                </p>
+              </div>
+            </article>
+
+            <article class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-card-head">
+                  <div>
+                    <h4>Current Education</h4>
+                    <span class="timeline-subtitle">Port Said Military Secondary School</span>
+                  </div>
+                  <span class="timeline-date">Now</span>
+                </div>
+                <p>
+                  I am currently a <strong>General Secondary student</strong> studying at
+                  <strong>Port Said Military Secondary School</strong>, where I continue my
+                  academic journey while developing my technical skills in web development.
+                </p>
+              </div>
+            </article>
+
+            <article class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-card-head">
+                  <div>
+                    <h4>Previous School</h4>
+                    <span class="timeline-subtitle">Lycée El Horreya School</span>
+                  </div>
+                  <span class="timeline-date">Before</span>
+                </div>
+                <p>
+                  Before that, I studied at <strong>Lycée El Horreya School</strong>, which
+                  was an important part of my educational background and personal growth.
+                </p>
+              </div>
+            </article>
+
+            <article class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-card-head">
+                  <div>
+                    <h4>Personal Details</h4>
+                    <span class="timeline-subtitle">Port Said, Egypt</span>
+                  </div>
+                  <span class="timeline-date">Age 17</span>
+                </div>
+                <p>
+                  I am 17 years old. I was born on May 5, 2008, in Port Said, Egypt. I am proud
+                  to be starting my journey in tech at an early age with ambition and clear direction.
+                  I am currently focused on Frontend Development, learning HTML, CSS, JavaScript,
+                  and React, and building projects to improve my skills.
+                </p>
+              </div>
+            </article>
+
+            <article class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-card-head">
+                  <div>
+                    <h4>Frontend Journey</h4>
+                    <span class="timeline-subtitle">Started from Scratch</span>
+                  </div>
+                  <span class="timeline-date">2025</span>
+                </div>
+                <p>
+                  I began my Frontend journey from scratch, learning HTML, CSS, and JavaScript.
+                  Gradually, I moved on to React, building projects that helped me improve my skills
+                  and understand how to create interactive and user-friendly web interfaces.
+                </p>
+                <p>
+                  Along the way, I learned problem-solving, clean coding, and the importance of
+                  continuous learning. Every project challenged me to think creatively and pushed
+                  me to become better.
+                </p>
+              </div>
+            </article>
+
+            <article class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-card-head">
+                  <div>
+                    <h4>Future Goal & Contact</h4>
+                    <span class="timeline-subtitle">Future Full-Stack Developer</span>
+                  </div>
+                  <span class="timeline-date">Goal</span>
+                </div>
+                <p>
+                  My goal is to become a <strong>full-stack developer</strong> and build
+                  complete web applications from frontend interfaces to backend systems with
+                  strong problem-solving and real-world development skills.
+                </p>
+
+                <div class="tag-list">
+                  <span>Future Full-Stack Developer</span>
+                  <span>Started in 2025</span>
+                  <span>Age 17</span>
+                </div>
+
+                <p class="about-contact">
+                  Phone:
+                  <a href="tel:+201003411305" class="about-link">+20 100 341 1305</a>
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="timeline-list">
-        <article class="timeline-item reveal">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card">
-            <div class="timeline-card-head">
-              <div>
-                <h4>Who I Am</h4>
-                <span class="timeline-subtitle">Frontend Developer</span>
-              </div>
-              <span class="timeline-date">Present</span>
-            </div>
-            <p>
-              My name is <strong>Amr Khaled</strong>. I am passionate about frontend
-              development and enjoy building modern, clean, and responsive websites that
-              combine good design with smooth user experience.
-            </p>
-          </div>
-        </article>
-
-        <article class="timeline-item reveal">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card">
-            <div class="timeline-card-head">
-              <div>
-                <h4>Current Education</h4>
-                <span class="timeline-subtitle">Port Said Military Secondary School</span>
-              </div>
-              <span class="timeline-date">Now</span>
-            </div>
-            <p>
-              I am currently a <strong>General Secondary student</strong> studying at
-              <strong>Port Said Military Secondary School</strong>, where I continue my
-              academic journey while developing my technical skills in web development.
-            </p>
-          </div>
-        </article>
-
-        <article class="timeline-item reveal">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card">
-            <div class="timeline-card-head">
-              <div>
-                <h4>Previous School</h4>
-                <span class="timeline-subtitle">Lycée El Horreya School</span>
-              </div>
-              <span class="timeline-date">Before</span>
-            </div>
-            <p>
-              Before that, I studied at <strong>Lycée El Horreya School</strong>, which
-              was an important part of my educational background and personal growth.
-            </p>
-          </div>
-        </article>
-
-        <article class="timeline-item reveal">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card">
-            <div class="timeline-card-head">
-              <div>
-                <h4>Personal Details</h4>
-                <span class="timeline-subtitle">Port Said, Egypt</span>
-              </div>
-              <span class="timeline-date">Age 17</span>
-            </div>
-            <p>
-              I am 17 years old. I was born on May 5, 2008, in Port Said, Egypt. I am proud
-              to be starting my journey in tech at an early age with ambition and clear direction.
-              I am currently focused on Frontend Development, learning HTML, CSS, JavaScript,
-              and React, and building projects to improve my skills.
-            </p>
-          </div>
-        </article>
-
-        <article class="timeline-item reveal">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card">
-            <div class="timeline-card-head">
-              <div>
-                <h4>Frontend Journey</h4>
-                <span class="timeline-subtitle">Started from Scratch</span>
-              </div>
-              <span class="timeline-date">2025</span>
-            </div>
-            <p>
-              I began my Frontend journey from scratch, learning HTML, CSS, and JavaScript.
-              Gradually, I moved on to React, building projects that helped me improve my skills
-              and understand how to create interactive and user-friendly web interfaces.
-            </p>
-            <p>
-              Along the way, I learned problem-solving, clean coding, and the importance of
-              continuous learning. Every project challenged me to think creatively and pushed
-              me to become better.
-            </p>
-          </div>
-        </article>
-
-        <article class="timeline-item reveal">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card">
-            <div class="timeline-card-head">
-              <div>
-                <h4>Future Goal & Contact</h4>
-                <span class="timeline-subtitle">Future Full-Stack Developer</span>
-              </div>
-              <span class="timeline-date">Goal</span>
-            </div>
-            <p>
-              My goal is to become a <strong>full-stack developer</strong> and build
-              complete web applications from frontend interfaces to backend systems with
-              strong problem-solving and real-world development skills.
-            </p>
-
-            <div class="tag-list">
-              <span>Future Full-Stack Developer</span>
-              <span>Started in 2025</span>
-              <span>Age 17</span>
-            </div>
-
-            <p class="about-contact">
-              Phone:
-              <a href="tel:+201003411305" class="about-link">+20 100 341 1305</a>
-            </p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </div>
-</section>
     <!-- Skills Section -->
     <section class="skills section" id="skills">
       <div class="container">
@@ -400,7 +406,9 @@
       </div>
     </section>
 
+    <!-- Projects Section -->
    <!-- Projects Section -->
+<!-- Projects Section -->
 <section class="projects section" id="projects">
   <div class="container">
     <div class="section-heading reveal">
@@ -626,86 +634,85 @@
     </div>
   </div>
 </section>
-
     <!-- Contact Section -->
-   <!-- Contact Section -->
-<section class="contact section" id="contact">
-  <div class="container contact-modern">
-    <div class="contact-left reveal">
-      <div class="section-heading section-heading-left">
-        <span class="section-label">Contact</span>
-        <h2>Let’s Connect</h2>
+    <section class="contact section" id="contact">
+      <div class="container contact-modern">
+        <div class="contact-left reveal">
+          <div class="section-heading section-heading-left">
+            <span class="section-label">Contact</span>
+            <h2>Let’s Connect</h2>
+          </div>
+
+          <p class="contact-text">
+            I'm always interested in hearing about new projects and opportunities.
+            Whether you have a question or just want to say hi, I'll try my best to get back to you!
+          </p>
+
+          <div class="contact-cards">
+            <a href="mailto:amrkhalrdsalem174@gmail.com" class="contact-info-card">
+              <div class="contact-info-icon">
+                <i class="fa-regular fa-envelope"></i>
+              </div>
+              <div class="contact-info-content">
+                <span>Email</span>
+                <strong>amrkhalrdsalem174@gmail.com</strong>
+              </div>
+            </a>
+
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="contact-info-card">
+              <div class="contact-info-icon">
+                <i class="fa-brands fa-github"></i>
+              </div>
+              <div class="contact-info-content">
+                <span>GitHub</span>
+                <strong>Amrkhaled175</strong>
+              </div>
+            </a>
+
+            <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" class="contact-info-card">
+              <div class="contact-info-icon">
+                <i class="fa-brands fa-facebook-f"></i>
+              </div>
+              <div class="contact-info-content">
+                <span>Facebook</span>
+                <strong>Amr Khaled</strong>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <form class="contact-form contact-form-modern reveal" id="contact-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="7"
+              placeholder="Tell me about your project..."
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="contact-submit-btn">
+            <span>Send Message</span>
+            <i class="fa-regular fa-paper-plane"></i>
+          </button>
+
+          <p class="form-message" id="form-message" aria-live="polite"></p>
+        </form>
       </div>
-
-      <p class="contact-text">
-        I'm always interested in hearing about new projects and opportunities.
-        Whether you have a question or just want to say hi, I'll try my best to get back to you!
-      </p>
-
-      <div class="contact-cards">
-        <a href="mailto:hello@amrkhaled.dev" class="contact-info-card">
-          <div class="contact-info-icon">
-            <i class="fa-regular fa-envelope"></i>
-          </div>
-          <div class="contact-info-content">
-            <span>Email</span>
-            <strong>amrkhalrdsalem174@gmail.com</strong>
-          </div>
-        </a>
-
-        <a href="https://github.com/" target="_blank" class="contact-info-card">
-          <div class="contact-info-icon">
-            <i class="fa-brands fa-github"></i>
-          </div>
-          <div class="contact-info-content">
-            <span>GitHub</span>
-            <strong>Amrkhaled175</strong>
-          </div>
-        </a>
-
-        <a href="https://facebook.com/" target="_blank" class="contact-info-card">
-          <div class="contact-info-icon">
-            <i class="fa-brands fa-facebook-f"></i>
-          </div>
-          <div class="contact-info-content">
-            <span>Facebook</span>
-            <strong>Amr Khaled</strong>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <form class="contact-form contact-form-modern reveal" id="contact-form">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your name" required />
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="your@email.com" required />
-      </div>
-
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea
-          id="message"
-          name="message"
-          rows="7"
-          placeholder="Tell me about your project..."
-          required
-        ></textarea>
-      </div>
-
-      <button type="submit" class="contact-submit-btn">
-        <span>Send Message</span>
-        <i class="fa-regular fa-paper-plane"></i>
-      </button>
-
-      <p class="form-message" id="form-message" aria-live="polite"></p>
-    </form>
-  </div>
-</section>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer class="site-footer">
@@ -717,5 +724,4 @@
   <!-- Main script -->
   <script src="script.js"></script>
 </body>
-
 </html>
