@@ -1985,12 +1985,84 @@ textarea:focus-visible {
     justify-content: flex-start;
   }
 
-  .reveal,
-  .contact-left.reveal,
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.55s ease,
+      transform 0.55s ease;
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .contact-left.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.55s ease,
+      transform 0.55s ease;
+  }
+
   .contact-form-modern.reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.55s ease,
+      transform 0.55s ease;
+  }
+
+  .contact-left.reveal.is-visible,
+  .contact-form-modern.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .projects-grid.mobile-slider {
+    display: grid !important;
+    grid-auto-flow: column;
+    grid-auto-columns: 85%;
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.4rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .projects-grid.mobile-slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  .projects-grid.mobile-slider .project-card {
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .skill-progress-fill {
+    transition: width 0.9s ease;
+  }
+
+  .skill-card:hover {
+    transform: none;
+  }
+
+  .contact-info-card,
+  .project-card,
+  .skill-card,
+  .timeline-card,
+  .about-cv-btn,
+  .resume-download-btn {
+    transition:
+      transform 0.35s ease,
+      box-shadow 0.35s ease,
+      border-color 0.35s ease,
+      opacity 0.35s ease;
   }
 }
 
