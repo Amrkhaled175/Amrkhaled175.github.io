@@ -1,6 +1,6 @@
 // ==============================
 // Portfolio Website Interactions
-// Professional Responsive + Animation Version
+// Mobile Optimized + Smooth Motion Version
 // ==============================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -16,9 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const nameInput = document.getElementById("name");
   const submitBtn = contactForm?.querySelector('button[type="submit"]');
   const year = document.getElementById("year");
+  const projectsGrid = document.querySelector(".projects-grid");
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let isMobile = window.matchMedia("(max-width: 760px)").matches;
+  const isMobile = window.matchMedia("(max-width: 760px)").matches;
 
   const EMAILJS_PUBLIC_KEY = "STmq8AT68-XTyw6Fe";
   const EMAILJS_SERVICE_ID = "service_n05pses";
@@ -78,7 +79,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (navToggle && siteNav) {
     navToggle.addEventListener("click", () => {
       const isOpen = siteNav.classList.contains("is-open");
-      isOpen ? closeMobileMenu() : openMobileMenu();
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
     });
 
     navLinks.forEach((link) => {
@@ -99,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener(
       "resize",
       () => {
-        isMobile = window.matchMedia("(max-width: 760px)").matches;
         if (window.innerWidth > 760) {
           closeMobileMenu();
         }
@@ -126,33 +130,37 @@ document.addEventListener("DOMContentLoaded", () => {
   } else if ("IntersectionObserver" in window) {
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
+        entries.forEach((entry, index) => {
+          if (!entry.isIntersecting) return;
 
           const el = entry.target;
+
+          if (isMobile) {
+            el.style.transitionDelay = `${Math.min(index * 40, 160)}ms`;
+          }
+
           el.classList.add("is-visible");
 
           if (el.classList.contains("skill-card")) {
             const level = el.dataset.level;
             const fill = el.querySelector(".skill-progress-fill");
             if (fill && level) {
-              fill.style.width = `${level}%`;
+              requestAnimationFrame(() => {
+                fill.style.width = `${level}%`;
+              });
             }
           }
 
           observer.unobserve(el);
-        }
+        });
       },
       {
         threshold: isMobile ? 0.08 : 0.12,
-        rootMargin: "0px 0px -40px 0px",
+        rootMargin: isMobile ? "0px 0px -20px 0px" : "0px 0px -30px 0px",
       }
     );
 
-    revealItems.forEach((item, index) => {
-      item.style.transitionDelay = `${Math.min(index * 35, 220)}ms`;
-      revealObserver.observe(item);
-    });
+    revealItems.forEach((item) => revealObserver.observe(item));
   } else {
     revealItems.forEach((item) => item.classList.add("is-visible"));
     skillCards.forEach((card) => {
@@ -167,26 +175,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const sectionObserver = new IntersectionObserver(
       (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
 
           const currentId = entry.target.getAttribute("id");
-          if (!currentId || currentId === activeId) continue;
+          if (!currentId || currentId === activeId) return;
 
           activeId = currentId;
 
           navLinks.forEach((link) => {
             link.classList.toggle("active", link.getAttribute("href") === `#${currentId}`);
           });
-        }
+        });
       },
       {
-        threshold: isMobile ? 0.22 : 0.35,
-        rootMargin: isMobile ? "-70px 0px -55% 0px" : "-80px 0px -45% 0px",
+        threshold: isMobile ? 0.2 : 0.35,
+        rootMargin: isMobile ? "-60px 0px -55% 0px" : "-80px 0px -45% 0px",
       }
     );
 
     sections.forEach((section) => sectionObserver.observe(section));
+  }
+
+  if (projectsGrid && isMobile) {
+    projectsGrid.classList.add("mobile-slider");
   }
 
   if (contactForm && formMessage) {
@@ -230,6 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
         contactForm.reset();
       } catch (error) {
         console.error("EmailJS Error:", error);
+
         formMessage.textContent = "Failed to send message. Please try again.";
         formMessage.style.color = "#ef4444";
       } finally {
