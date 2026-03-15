@@ -1,6 +1,6 @@
 // ==============================
 // Portfolio Website Interactions
-// Optimized Mobile + Performance Version
+// Professional Responsive + Animation Version
 // ==============================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const year = document.getElementById("year");
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const isMobile = window.matchMedia("(max-width: 760px)").matches;
+  let isMobile = window.matchMedia("(max-width: 760px)").matches;
 
   const EMAILJS_PUBLIC_KEY = "STmq8AT68-XTyw6Fe";
   const EMAILJS_SERVICE_ID = "service_n05pses";
@@ -78,11 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (navToggle && siteNav) {
     navToggle.addEventListener("click", () => {
       const isOpen = siteNav.classList.contains("is-open");
-      if (isOpen) {
-        closeMobileMenu();
-      } else {
-        openMobileMenu();
-      }
+      isOpen ? closeMobileMenu() : openMobileMenu();
     });
 
     navLinks.forEach((link) => {
@@ -103,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener(
       "resize",
       () => {
+        isMobile = window.matchMedia("(max-width: 760px)").matches;
         if (window.innerWidth > 760) {
           closeMobileMenu();
         }
@@ -115,12 +112,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const fill = card.querySelector(".skill-progress-fill");
     const level = card.dataset.level || 0;
     if (fill) {
-      fill.style.width = prefersReducedMotion || isMobile ? `${level}%` : "0%";
+      fill.style.width = prefersReducedMotion ? `${level}%` : "0%";
     }
   });
 
-  if (prefersReducedMotion || isMobile) {
+  if (prefersReducedMotion) {
     revealItems.forEach((item) => item.classList.add("is-visible"));
+    skillCards.forEach((card) => {
+      const fill = card.querySelector(".skill-progress-fill");
+      const level = card.dataset.level || 0;
+      if (fill) fill.style.width = `${level}%`;
+    });
   } else if ("IntersectionObserver" in window) {
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -142,17 +144,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       },
       {
-        threshold: 0.12,
-        rootMargin: "0px 0px -30px 0px",
+        threshold: isMobile ? 0.08 : 0.12,
+        rootMargin: "0px 0px -40px 0px",
       }
     );
 
-    revealItems.forEach((item) => revealObserver.observe(item));
+    revealItems.forEach((item, index) => {
+      item.style.transitionDelay = `${Math.min(index * 35, 220)}ms`;
+      revealObserver.observe(item);
+    });
   } else {
     revealItems.forEach((item) => item.classList.add("is-visible"));
+    skillCards.forEach((card) => {
+      const fill = card.querySelector(".skill-progress-fill");
+      const level = card.dataset.level || 0;
+      if (fill) fill.style.width = `${level}%`;
+    });
   }
 
-  if (!isMobile && sections.length && navLinks.length && "IntersectionObserver" in window) {
+  if (sections.length && navLinks.length && "IntersectionObserver" in window) {
     let activeId = "";
 
     const sectionObserver = new IntersectionObserver(
@@ -171,8 +181,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       },
       {
-        threshold: 0.35,
-        rootMargin: "-80px 0px -45% 0px",
+        threshold: isMobile ? 0.22 : 0.35,
+        rootMargin: isMobile ? "-70px 0px -55% 0px" : "-80px 0px -45% 0px",
       }
     );
 
@@ -220,7 +230,6 @@ document.addEventListener("DOMContentLoaded", () => {
         contactForm.reset();
       } catch (error) {
         console.error("EmailJS Error:", error);
-
         formMessage.textContent = "Failed to send message. Please try again.";
         formMessage.style.color = "#ef4444";
       } finally {
