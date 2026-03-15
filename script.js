@@ -1,6 +1,6 @@
 // ==============================
 // Portfolio Website Interactions
-// Optimized Version with EmailJS
+// Optimized Mobile + Performance Version
 // ==============================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,148 +18,182 @@ document.addEventListener("DOMContentLoaded", () => {
   const year = document.getElementById("year");
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isMobile = window.matchMedia("(max-width: 760px)").matches;
 
-  // ==============================
-  // EmailJS Config
-  // ==============================
   const EMAILJS_PUBLIC_KEY = "STmq8AT68-XTyw6Fe";
   const EMAILJS_SERVICE_ID = "service_n05pses";
   const EMAILJS_TEMPLATE_ID = "template_451ur3v";
 
-  // Initialize EmailJS
   if (window.emailjs) {
-    emailjs.init(EMAILJS_PUBLIC_KEY);
+    try {
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+    } catch (error) {
+      console.error("EmailJS init error:", error);
+    }
   }
 
   if (year) {
     year.textContent = new Date().getFullYear();
   }
 
-  // Header scroll state
   let ticking = false;
+  let lastScrollY = window.scrollY;
 
   const updateHeaderState = () => {
     if (header) {
-      header.classList.toggle("scrolled", window.scrollY > 20);
+      header.classList.toggle("scrolled", lastScrollY > 16);
     }
     ticking = false;
   };
 
   const onScroll = () => {
+    lastScrollY = window.scrollY || window.pageYOffset;
     if (!ticking) {
-      window.requestAnimationFrame(updateHeaderState);
       ticking = true;
+      requestAnimationFrame(updateHeaderState);
     }
   };
 
   updateHeaderState();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  // Mobile navigation
+  const closeMobileMenu = () => {
+    if (!navToggle || !siteNav) return;
+    siteNav.classList.remove("is-open");
+    navToggle.classList.remove("is-open");
+    navToggle.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  };
+
+  const openMobileMenu = () => {
+    if (!navToggle || !siteNav) return;
+    siteNav.classList.add("is-open");
+    navToggle.classList.add("is-open");
+    navToggle.setAttribute("aria-expanded", "true");
+    if (window.innerWidth <= 760) {
+      document.body.style.overflow = "hidden";
+    }
+  };
+
   if (navToggle && siteNav) {
     navToggle.addEventListener("click", () => {
-      const isOpen = siteNav.classList.toggle("is-open");
-      navToggle.classList.toggle("is-open", isOpen);
-      navToggle.setAttribute("aria-expanded", String(isOpen));
-      document.body.style.overflow = isOpen && window.innerWidth <= 760 ? "hidden" : "";
+      const isOpen = siteNav.classList.contains("is-open");
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
     });
 
     navLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        siteNav.classList.remove("is-open");
-        navToggle.classList.remove("is-open");
-        navToggle.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
-      });
+      link.addEventListener("click", closeMobileMenu, { passive: true });
     });
 
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 760) {
-        siteNav.classList.remove("is-open");
-        navToggle.classList.remove("is-open");
-        navToggle.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
+    document.addEventListener("click", (e) => {
+      if (
+        window.innerWidth <= 760 &&
+        siteNav.classList.contains("is-open") &&
+        !siteNav.contains(e.target) &&
+        !navToggle.contains(e.target)
+      ) {
+        closeMobileMenu();
       }
     });
+
+    window.addEventListener(
+      "resize",
+      () => {
+        if (window.innerWidth > 760) {
+          closeMobileMenu();
+        }
+      },
+      { passive: true }
+    );
   }
 
-  // Skill bars initial state
   skillCards.forEach((card) => {
     const fill = card.querySelector(".skill-progress-fill");
+    const level = card.dataset.level || 0;
     if (fill) {
-      fill.style.width = prefersReducedMotion ? `${card.dataset.level || 0}%` : "0%";
+      fill.style.width = prefersReducedMotion || isMobile ? `${level}%` : "0%";
     }
   });
 
-  // Reveal animations
-  if (prefersReducedMotion) {
+  if (prefersReducedMotion || isMobile) {
     revealItems.forEach((item) => item.classList.add("is-visible"));
-  } else {
+  } else if ("IntersectionObserver" in window) {
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
 
-          entry.target.classList.add("is-visible");
+          const el = entry.target;
+          el.classList.add("is-visible");
 
-          if (entry.target.classList.contains("skill-card")) {
-            const level = entry.target.dataset.level;
-            const fill = entry.target.querySelector(".skill-progress-fill");
+          if (el.classList.contains("skill-card")) {
+            const level = el.dataset.level;
+            const fill = el.querySelector(".skill-progress-fill");
             if (fill && level) {
               fill.style.width = `${level}%`;
             }
           }
 
-          observer.unobserve(entry.target);
-        });
+          observer.unobserve(el);
+        }
       },
       {
-        threshold: 0.15,
-        rootMargin: "0px 0px -40px 0px",
+        threshold: 0.12,
+        rootMargin: "0px 0px -30px 0px",
       }
     );
 
     revealItems.forEach((item) => revealObserver.observe(item));
+  } else {
+    revealItems.forEach((item) => item.classList.add("is-visible"));
   }
 
-  // Active nav link on section view
-  if (sections.length && navLinks.length) {
+  if (!isMobile && sections.length && navLinks.length && "IntersectionObserver" in window) {
+    let activeId = "";
+
     const sectionObserver = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
 
           const currentId = entry.target.getAttribute("id");
+          if (!currentId || currentId === activeId) continue;
+
+          activeId = currentId;
 
           navLinks.forEach((link) => {
-            const isMatch = link.getAttribute("href") === `#${currentId}`;
-            link.classList.toggle("active", isMatch);
+            link.classList.toggle("active", link.getAttribute("href") === `#${currentId}`);
           });
-        });
+        }
       },
       {
-        threshold: 0.45,
-        rootMargin: "-80px 0px -35% 0px",
+        threshold: 0.35,
+        rootMargin: "-80px 0px -45% 0px",
       }
     );
 
     sections.forEach((section) => sectionObserver.observe(section));
   }
 
-  // Contact form submission with EmailJS
   if (contactForm && formMessage) {
     contactForm.addEventListener("submit", async (event) => {
       event.preventDefault();
 
       if (!window.emailjs) {
         formMessage.textContent = "Email service failed to load.";
+        formMessage.style.color = "#ef4444";
         return;
       }
 
       const userName = nameInput ? nameInput.value.trim() : "";
-      const originalBtnText = submitBtn ? submitBtn.innerHTML : "";
+      const originalBtnHTML = submitBtn ? submitBtn.innerHTML : "";
 
       formMessage.textContent = "Sending your message...";
+      formMessage.style.color = "#d7b5ff";
 
       if (submitBtn) {
         submitBtn.disabled = true;
@@ -181,20 +215,18 @@ document.addEventListener("DOMContentLoaded", () => {
         formMessage.textContent = userName
           ? `Thanks, ${userName}. Your message was sent successfully!`
           : "Your message was sent successfully!";
-
         formMessage.style.color = "#22c55e";
+
         contactForm.reset();
       } catch (error) {
         console.error("EmailJS Error:", error);
 
-        formMessage.textContent =
-          "Failed to send message. Please try again.";
-
+        formMessage.textContent = "Failed to send message. Please try again.";
         formMessage.style.color = "#ef4444";
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = originalBtnText;
+          submitBtn.innerHTML = originalBtnHTML;
           submitBtn.style.opacity = "1";
           submitBtn.style.cursor = "pointer";
         }
