@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const nameInput = document.getElementById("name");
   const submitBtn = contactForm?.querySelector('button[type="submit"]');
   const year = document.getElementById("year");
-  const projectsGrid = document.querySelector(".projects-grid");
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const isMobile = window.matchMedia("(max-width: 760px)").matches;
@@ -71,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     siteNav.classList.add("is-open");
     navToggle.classList.add("is-open");
     navToggle.setAttribute("aria-expanded", "true");
+
     if (window.innerWidth <= 760) {
       document.body.style.overflow = "hidden";
     }
@@ -115,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
   skillCards.forEach((card) => {
     const fill = card.querySelector(".skill-progress-fill");
     const level = card.dataset.level || 0;
+
     if (fill) {
       fill.style.width = prefersReducedMotion ? `${level}%` : "0%";
     }
@@ -122,6 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (prefersReducedMotion) {
     revealItems.forEach((item) => item.classList.add("is-visible"));
+
     skillCards.forEach((card) => {
       const fill = card.querySelector(".skill-progress-fill");
       const level = card.dataset.level || 0;
@@ -144,6 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (el.classList.contains("skill-card")) {
             const level = el.dataset.level;
             const fill = el.querySelector(".skill-progress-fill");
+
             if (fill && level) {
               requestAnimationFrame(() => {
                 fill.style.width = `${level}%`;
@@ -163,6 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
     revealItems.forEach((item) => revealObserver.observe(item));
   } else {
     revealItems.forEach((item) => item.classList.add("is-visible"));
+
     skillCards.forEach((card) => {
       const fill = card.querySelector(".skill-progress-fill");
       const level = card.dataset.level || 0;
@@ -197,10 +201,6 @@ document.addEventListener("DOMContentLoaded", () => {
     sections.forEach((section) => sectionObserver.observe(section));
   }
 
-  if (projectsGrid && isMobile) {
-    projectsGrid.classList.add("mobile-slider");
-  }
-
   if (contactForm && formMessage) {
     contactForm.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = `<span>Sending...</span>`;
+        submitBtn.innerHTML = "<span>Sending...</span>";
         submitBtn.style.opacity = "0.8";
         submitBtn.style.cursor = "not-allowed";
       }
