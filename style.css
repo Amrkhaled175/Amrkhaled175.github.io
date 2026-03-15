@@ -1,6 +1,3 @@
-/* =========================
-   Global Theme Variables
-========================= */
 :root {
   --bg: #050505;
   --bg-soft: #0a0a10;
@@ -20,9 +17,6 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* =========================
-   Reset / Base Styles
-========================= */
 *,
 *::before,
 *::after {
@@ -34,6 +28,8 @@ html {
   scroll-padding-top: 100px;
   scrollbar-width: thin;
   scrollbar-color: #a855f7 #0a0a10;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 body,
@@ -53,7 +49,9 @@ body {
     radial-gradient(circle at 85% 15%, rgba(34, 211, 238, 0.08), transparent 20%),
     linear-gradient(180deg, #050505 0%, #09090d 55%, #050505 100%);
   line-height: 1.7;
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
+  position: relative;
 }
 
 img {
@@ -89,7 +87,8 @@ p,
 strong,
 span,
 a {
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
+  word-wrap: break-word;
 }
 
 ::selection {
@@ -97,9 +96,6 @@ a {
   color: var(--text);
 }
 
-/* =========================
-   Custom Scrollbar
-========================= */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -124,12 +120,27 @@ a {
   background: #0a0a10;
 }
 
-/* =========================
-   Utility Classes
-========================= */
 .container {
   width: min(calc(100% - 2rem), var(--container));
   margin-inline: auto;
+}
+
+.section,
+.hero-grid,
+.hero-content,
+.hero-visual,
+.hero-highlights,
+.skills-grid,
+.projects-grid,
+.contact-modern,
+.timeline-list,
+.timeline-card,
+.project-card,
+.skill-card,
+.contact-info-card,
+.site-nav {
+  max-width: 100%;
+  min-width: 0;
 }
 
 .section {
@@ -179,39 +190,33 @@ a {
   transform: translateY(0);
 }
 
-/* =========================
-   Decorative Background Glows
-========================= */
 .background-glow {
   position: fixed;
   inset: auto;
-  width: 32rem;
-  height: 32rem;
+  width: 24rem;
+  height: 24rem;
   border-radius: 50%;
   pointer-events: none;
-  filter: blur(90px);
-  opacity: 0.22;
+  filter: blur(70px);
+  opacity: 0.16;
   z-index: -1;
-  will-change: transform;
+  will-change: auto;
 }
 
 .glow-one {
   top: -8rem;
   left: -8rem;
   background: var(--accent);
-  animation: driftOne 14s ease-in-out infinite;
+  animation: driftOne 24s ease-in-out infinite;
 }
 
 .glow-two {
   top: 18rem;
   right: -10rem;
   background: var(--secondary);
-  animation: driftTwo 16s ease-in-out infinite;
+  animation: driftTwo 24s ease-in-out infinite;
 }
 
-/* =========================
-   Header
-========================= */
 .site-header {
   position: fixed;
   top: 0;
@@ -225,7 +230,7 @@ a {
 
 .site-header.scrolled {
   background: rgba(5, 5, 5, 0.72);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.26);
 }
 
@@ -275,7 +280,7 @@ a {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.04);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(10px);
 }
 
 .site-nav a {
@@ -357,9 +362,6 @@ a {
   transform: translateX(-50%) rotate(-45deg);
 }
 
-/* =========================
-   Buttons
-========================= */
 .btn {
   position: relative;
   display: inline-flex;
@@ -369,7 +371,6 @@ a {
   border-radius: 999px;
   font-weight: 600;
   overflow: hidden;
-  will-change: transform;
   -webkit-tap-highlight-color: transparent;
   transition:
     transform 0.35s var(--ease),
@@ -410,7 +411,7 @@ a {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border);
   color: var(--text);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(8px);
 }
 
 .btn-secondary:hover,
@@ -428,9 +429,6 @@ a {
   width: 100%;
 }
 
-/* =========================
-   Hero
-========================= */
 .hero {
   min-height: 100svh;
   display: grid;
@@ -522,10 +520,9 @@ a {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(10px);
   animation: float 6s ease-in-out infinite;
-  will-change: transform;
-  contain: layout paint style;
+  contain: content;
 }
 
 .hero-image-card::after {
@@ -535,8 +532,8 @@ a {
   z-index: -1;
   border-radius: inherit;
   background: linear-gradient(135deg, rgba(168, 85, 247, 0.5), rgba(34, 211, 238, 0.18), transparent 75%);
-  filter: blur(18px);
-  opacity: 0.8;
+  filter: blur(14px);
+  opacity: 0.7;
 }
 
 .hero-image-ring {
@@ -550,8 +547,8 @@ a {
     rgba(34, 211, 238, 0.25),
     transparent
   );
-  filter: blur(18px);
-  opacity: 0.45;
+  filter: blur(14px);
+  opacity: 0.35;
   animation: spin 12s linear infinite;
 }
 
@@ -560,6 +557,8 @@ a {
   object-fit: cover;
   border-radius: 24px;
   background: linear-gradient(145deg, #171722, #0c0c12);
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .floating-badge {
@@ -572,8 +571,7 @@ a {
   font-size: 0.92rem;
   font-weight: 600;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(12px);
-  will-change: transform;
+  backdrop-filter: blur(8px);
 }
 
 .badge-one {
@@ -594,9 +592,6 @@ a {
   animation: floatBadge 8s ease-in-out infinite 1s;
 }
 
-/* =========================
-   About
-========================= */
 .about-intro {
   max-width: 760px;
   margin-top: 1rem;
@@ -677,7 +672,7 @@ a {
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow);
-  contain: layout paint style;
+  contain: content;
   transition:
     transform 0.35s var(--ease),
     border-color 0.35s var(--ease),
@@ -770,9 +765,6 @@ a {
   text-shadow: 0 0 16px rgba(168, 85, 247, 0.28);
 }
 
-/* =========================
-   Skills
-========================= */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -785,8 +777,7 @@ a {
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
-  will-change: transform;
-  contain: layout paint style;
+  contain: content;
   transition:
     transform 0.35s var(--ease),
     border-color 0.35s var(--ease),
@@ -913,12 +904,6 @@ a {
   transition: width 1.2s var(--ease);
 }
 
-/* =========================
-   Projects
-========================= */
-/* =========================
-   Projects
-========================= */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -931,6 +916,7 @@ a {
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
+  contain: content;
   transition:
     transform 0.4s var(--ease),
     border-color 0.4s var(--ease),
@@ -960,6 +946,8 @@ a {
   height: 100%;
   object-fit: cover;
   transition: transform 0.7s var(--ease);
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .project-card:hover .project-image img {
@@ -970,12 +958,26 @@ a {
   padding: 1.5rem;
 }
 
+.project-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
 .project-tag {
   display: inline-flex;
   margin-bottom: 0.8rem;
   color: #d7b5ff;
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+.project-number {
+  color: #9da3b9;
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
 .project-body h3 {
@@ -988,6 +990,23 @@ a {
   color: var(--muted);
 }
 
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.project-stack span {
+  padding: 0.42rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(168, 85, 247, 0.08);
+  border: 1px solid rgba(168, 85, 247, 0.16);
+  color: #d7b5ff;
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+
 .project-links {
   display: flex;
   flex-wrap: wrap;
@@ -995,9 +1014,6 @@ a {
   margin-top: 1.2rem;
 }
 
-/* =========================
-   Contact
-========================= */
 .contact-modern {
   display: grid;
   grid-template-columns: 0.95fr 1.05fr;
@@ -1030,8 +1046,7 @@ a {
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow);
-  will-change: transform;
-  contain: layout paint style;
+  contain: content;
   -webkit-tap-highlight-color: transparent;
   transition:
     transform 0.35s var(--ease),
@@ -1148,7 +1163,6 @@ a {
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 16px 34px rgba(126, 34, 206, 0.35);
-  will-change: transform;
   -webkit-tap-highlight-color: transparent;
   transition:
     transform 0.35s var(--ease),
@@ -1173,7 +1187,6 @@ a {
   font-weight: 500;
 }
 
-/* Contact slider reveal */
 .contact-left.reveal {
   opacity: 0;
   transform: translateX(-40px);
@@ -1196,9 +1209,6 @@ a {
   transform: translateX(0);
 }
 
-/* =========================
-   Footer
-========================= */
 .site-footer {
   padding: 1.2rem 0 2rem;
 }
@@ -1213,9 +1223,6 @@ a {
   text-align: center;
 }
 
-/* =========================
-   Accessibility / Focus
-========================= */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -1224,9 +1231,6 @@ textarea:focus-visible {
   border-radius: 16px;
 }
 
-/* =========================
-   Animations
-========================= */
 @keyframes float {
   0%,
   100% {
@@ -1259,7 +1263,7 @@ textarea:focus-visible {
     transform: translate(0, 0);
   }
   50% {
-    transform: translate(30px, 20px);
+    transform: translate(20px, 14px);
   }
 }
 
@@ -1269,13 +1273,10 @@ textarea:focus-visible {
     transform: translate(0, 0);
   }
   50% {
-    transform: translate(-25px, 35px);
+    transform: translate(-18px, 22px);
   }
 }
 
-/* =========================
-   Responsive Styles
-========================= */
 @media (max-width: 1100px) {
   .hero-grid {
     grid-template-columns: 1fr;
@@ -1346,6 +1347,30 @@ textarea:focus-visible {
   .timeline-card-head {
     align-items: flex-start;
   }
+
+  .background-glow {
+    width: 14rem;
+    height: 14rem;
+    filter: blur(50px);
+    opacity: 0.1;
+  }
+
+  .site-nav,
+  .hero-image-card,
+  .floating-badge,
+  .btn-secondary,
+  .btn-ghost {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .project-card,
+  .skill-card,
+  .timeline-card,
+  .contact-info-card,
+  .hero-image-card {
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22) !important;
+  }
 }
 
 @media (max-width: 820px) {
@@ -1402,21 +1427,30 @@ textarea:focus-visible {
     scroll-padding-top: 88px;
   }
 
+  .site-header {
+    background: rgba(5, 5, 5, 0.92);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
   .nav-toggle {
     display: inline-block;
   }
 
   .site-header.scrolled {
-    backdrop-filter: blur(12px);
+    backdrop-filter: none;
   }
 
   .site-nav {
     position: absolute;
-    top: 84px;
-    left: 1rem;
-    right: 1rem;
-    max-height: calc(100svh - 110px);
+    top: 72px;
+    left: 0.75rem;
+    right: 0.75rem;
+    width: auto;
+    max-width: calc(100vw - 1.5rem);
+    max-height: calc(100svh - 100px);
     overflow-y: auto;
+    overflow-x: hidden;
     flex-direction: column;
     align-items: stretch;
     gap: 0.7rem;
@@ -1424,7 +1458,7 @@ textarea:focus-visible {
     border-radius: 22px;
     background: rgba(12, 12, 18, 0.96);
     border: 1px solid var(--border);
-    box-shadow: var(--shadow);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
     opacity: 0;
     pointer-events: none;
     transform: translateY(-10px);
@@ -1435,6 +1469,8 @@ textarea:focus-visible {
 
   .site-nav a {
     width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 0.95rem;
   }
 
   .site-nav.is-open {
@@ -1445,67 +1481,139 @@ textarea:focus-visible {
 
   .hero {
     min-height: auto;
-    padding-top: 6.2rem;
+    padding-top: 5.8rem;
   }
 
   .hero-grid {
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .hero-content {
+  .hero-content,
+  .hero-visual {
+    width: 100%;
+    max-width: 100%;
     text-align: center;
   }
 
+  .hero-content h1 {
+    font-size: clamp(2.2rem, 10vw, 3.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
   .hero-text {
-    font-size: 1rem;
+    max-width: 100%;
+    font-size: 0.98rem;
+    padding-inline: 0.1rem;
   }
 
-  .hero-image-card {
-    width: min(100%, 320px);
-    padding: 0.8rem;
-    border-radius: 24px;
-  }
-
-  .hero-image {
-    border-radius: 18px;
-  }
-
-  .hero-image-ring {
-    inset: -10px;
-    border-radius: 30px;
-    filter: blur(14px);
-  }
-
-  .badge-one,
-  .badge-two,
-  .badge-three {
-    position: static;
+  .hero-actions,
+  .project-links {
+    flex-direction: column;
     width: 100%;
+  }
+
+  .hero-actions .btn,
+  .project-links .btn,
+  .btn,
+  .btn-small {
+    width: 100%;
+  }
+
+  .hero-highlights,
+  .skills-grid,
+  .projects-grid,
+  .contact-modern {
+    grid-template-columns: 1fr !important;
+  }
+
+  .highlight-card {
+    width: 100%;
+    padding: 0.95rem;
     text-align: center;
   }
 
   .hero-visual {
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 0.75rem;
   }
 
+  .hero-image-card {
+    width: min(100%, 300px);
+    max-width: 100%;
+    padding: 0.7rem;
+    border-radius: 22px;
+    animation: none;
+  }
+
+  .hero-image {
+    border-radius: 16px;
+  }
+
+  .hero-image-ring,
+  .background-glow {
+    display: none !important;
+  }
+
+  .floating-badge {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    padding: 0.65rem 0.85rem;
+    font-size: 0.85rem;
+    animation: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(1.7rem, 7vw, 2.3rem);
+    line-height: 1.15;
+  }
+
+  .about-intro,
+  .contact-text {
+    font-size: 0.96rem;
+    max-width: 100%;
+  }
+
+  .about-title-row {
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
   .timeline-list {
-    padding-left: 1.4rem;
+    padding-left: 1.2rem;
   }
 
   .timeline-list::before {
-    left: 5px;
+    left: 4px;
+  }
+
+  .timeline-item {
+    margin-bottom: 1rem;
   }
 
   .timeline-dot {
-    left: -1.4rem;
-    top: 1.4rem;
+    left: -1.2rem;
+    top: 1.25rem;
     width: 10px;
     height: 10px;
+    box-shadow:
+      0 0 0 4px rgba(168, 85, 247, 0.1),
+      0 0 10px rgba(168, 85, 247, 0.28);
   }
 
   .timeline-card {
-    padding: 1.2rem;
-    border-radius: 20px;
+    padding: 1rem;
+    border-radius: 18px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
   }
 
   .timeline-card-head {
@@ -1515,29 +1623,38 @@ textarea:focus-visible {
   }
 
   .timeline-card-head h4 {
-    font-size: 1.2rem;
+    font-size: 1.08rem;
   }
 
   .timeline-subtitle,
   .timeline-date {
-    font-size: 0.92rem;
+    font-size: 0.88rem;
   }
 
-  .skills-grid,
-  .projects-grid {
-    grid-template-columns: 1fr;
+  .tag-list,
+  .project-stack {
+    gap: 0.45rem;
+  }
+
+  .tag-list span,
+  .project-stack span {
+    font-size: 0.8rem;
   }
 
   .project-card {
     border-radius: 22px;
   }
 
+  .project-image {
+    aspect-ratio: 16 / 11;
+  }
+
   .project-body {
-    padding: 1.2rem;
+    padding: 1rem;
   }
 
   .project-body h3 {
-    font-size: 1.2rem;
+    font-size: 1.12rem;
   }
 
   .contact-modern {
@@ -1545,8 +1662,9 @@ textarea:focus-visible {
   }
 
   .contact-info-card {
-    padding: 1.1rem;
-    border-radius: 20px;
+    padding: 1rem;
+    border-radius: 18px;
+    gap: 0.9rem;
     align-items: flex-start;
   }
 
@@ -1557,22 +1675,21 @@ textarea:focus-visible {
     font-size: 1.15rem;
   }
 
+  .contact-info-content strong {
+    font-size: 0.95rem;
+  }
+
   .form-group input,
   .form-group textarea {
-    padding: 1rem 1rem;
-    border-radius: 18px;
+    padding: 1rem;
+    border-radius: 16px;
+    box-shadow: none;
   }
 
   .contact-submit-btn {
-    padding: 1rem 1.2rem;
-    border-radius: 18px;
-  }
-
-  .background-glow {
-    width: 20rem;
-    height: 20rem;
-    filter: blur(70px);
-    opacity: 0.16;
+    padding: 1rem;
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(126, 34, 206, 0.25);
   }
 
   .hero-image-card,
@@ -1581,6 +1698,14 @@ textarea:focus-visible {
   .timeline-card,
   .contact-info-card {
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+  }
+
+  .reveal,
+  .contact-left.reveal,
+  .contact-form-modern.reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
 
@@ -1607,7 +1732,7 @@ textarea:focus-visible {
   }
 
   .site-nav {
-    top: 78px;
+    top: 72px;
     left: 0.5rem;
     right: 0.5rem;
     padding: 0.85rem;
@@ -1630,26 +1755,6 @@ textarea:focus-visible {
   .hero-content h1 {
     font-size: clamp(2.3rem, 12vw, 3.2rem);
     line-height: 1;
-  }
-
-  .hero-actions,
-  .project-links {
-    flex-direction: column;
-  }
-
-  .btn,
-  .btn-small {
-    width: 100%;
-  }
-
-  .highlight-card {
-    padding: 0.95rem 1rem;
-    text-align: center;
-  }
-
-  .about-title-row {
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
   }
 
   .about-title-icon {
@@ -1685,19 +1790,6 @@ textarea:focus-visible {
 
   .skill-level {
     align-self: flex-start;
-  }
-
-  .project-stack {
-    gap: 0.45rem;
-  }
-
-  .project-stack span {
-    font-size: 0.82rem;
-  }
-
-  .contact-info-card {
-    gap: 0.9rem;
-    flex-direction: row;
   }
 
   .contact-info-content span {
